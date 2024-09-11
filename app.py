@@ -19,11 +19,12 @@ def show_home():
 # Función para mostrar una pieza de arte generativo ajustable
 def generate_art(num_lines=50, noise_amplitude=0.5, line_opacity=0.6, cycles=1, 
                  freq=1, amplitude=1, color='blue', linewidth=1, linestyle='-', 
-                 bgcolor='white', show_grid=True, y_limit=5, y_threshold=2, phase_randomness=0):
+                 bgcolor='white', show_grid=False, y_limit=5, y_threshold=2, phase_randomness=0):
     x = np.linspace(0, 10 * cycles, 100 * cycles)
     
     fig, ax = plt.subplots(figsize=(10, 5))
     ax.set_facecolor(bgcolor)
+    ax.axis('off')  # Desactiva los ejes
     if show_grid:
         ax.grid(True)
     for _ in range(num_lines):
@@ -51,7 +52,7 @@ def show_gallery():
     linewidth = st.slider("Ancho de la línea", min_value=0.5, max_value=5.0, value=1.0)
     linestyle = st.selectbox("Estilo de la línea", options=['-', '--', '-.', ':'])
     bgcolor = st.color_picker("Color de fondo", value='#FFFFFF')
-    show_grid = st.checkbox("Mostrar grilla", value=True)
+    show_grid = st.checkbox("Mostrar grilla", value=False)
     y_limit = st.slider("Límite en el eje Y", min_value=0, max_value=10, value=5)
     y_threshold = st.slider("Protección contra línea de alto valor (umbral)", min_value=0.5, max_value=10.0, value=2.0)
     phase_randomness = st.slider("Aleatoriedad de la fase", min_value=0.0, max_value=3.14, value=0.0)
