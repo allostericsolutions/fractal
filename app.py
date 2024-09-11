@@ -16,22 +16,28 @@ def show_home():
         y aprende sobre los algoritmos detrás de estas creaciones. ¡Disfruta de tu visita!
     """)
 
-# Función para mostrar una pieza de arte generativo simple
-def generate_art(num_lines=50):
-    x = np.linspace(0, 10, 100)
+# Función para mostrar una pieza de arte generativo ajustable
+def generate_art(num_lines=50, noise_amplitude=0.5, line_opacity=0.6, cycles=1):
+    x = np.linspace(0, 10 * cycles, 100 * cycles)
     
     fig, ax = plt.subplots(figsize=(10, 5))
     for _ in range(num_lines):
-        y = np.sin(x) + np.random.normal(scale=0.5, size=x.shape)
-        ax.plot(x, y, alpha=0.6)
+        y = np.sin(x) + np.random.normal(scale=noise_amplitude, size=x.shape)
+        ax.plot(x, y, alpha=line_opacity)
     plt.close()
     return fig
 
 # Función de galería
 def show_gallery():
     st.header("Galería")
+
+    # Parameters for customization
     num_lines = st.slider("Número de líneas", min_value=10, max_value=100, value=50)
-    fig = generate_art(num_lines)
+    noise_amplitude = st.slider("Amplitud del ruido", min_value=0.1, max_value=1.0, value=0.5)
+    line_opacity = st.slider("Opacidad de las líneas", min_value=0.1, max_value=1.0, value=0.6)
+    cycles = st.slider("Ciclos de la función seno", min_value=1, max_value=10, value=1)
+
+    fig = generate_art(num_lines, noise_amplitude, line_opacity, cycles)
     st.pyplot(fig)
 
 # Barra lateral para navegación
