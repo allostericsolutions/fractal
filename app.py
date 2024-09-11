@@ -1,4 +1,3 @@
-
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
@@ -44,6 +43,3 @@ if nav_option == "Inicio":
     show_home()
 elif nav_option == "Galería":
     show_gallery()
-
-if __name__ == "__main__":
-    st.experimental_rerun()
